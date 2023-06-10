@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -32,7 +33,7 @@ public class Autor {
     @Past
     @NotNull(message = "Debe ingresar una fecha de nacimiento")
     @Column(name = "fecha_nacimiento", nullable = false)
-    private Integer fechaNacimiento;
+    private LocalDate fechaNacimiento;
 
 
     @OneToMany(mappedBy = "autor")
@@ -41,7 +42,7 @@ public class Autor {
     public Autor() {
     }
 
-    public Autor(Integer id, String nombreAutor, String apellidoAutor, String lugarNacimiento, Integer fechaNacimiento, List<Libro> libros) {
+    public Autor(Integer id, String nombreAutor, String apellidoAutor, String lugarNacimiento, LocalDate fechaNacimiento, List<Libro> libros) {
         Id = id;
         this.nombreAutor = nombreAutor;
         this.apellidoAutor = apellidoAutor;
@@ -82,11 +83,11 @@ public class Autor {
         this.lugarNacimiento = lugarNacimiento;
     }
 
-    public Integer getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Integer fechaNacimiento) {
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 

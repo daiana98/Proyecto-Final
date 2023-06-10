@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Autor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+</head>
+<body>
+<div class="row justify-content-center">
+    <div class="col-md6 col-lg-4">
+        <br>
+
+        <h3 style="text-align:center" class="p-3 mb-2 bg-success bg-gradient text-white"> Editar Autor</h3>
+
+        <br>
+
+        <form th:action="@{/editar/{id}(id=${autor.Id})}" th:object="${autor}" method="post">
+
+            <div class="mb-3">
+                <label for="nombreAutor"> Nombre: </label>
+                <input id="nombreAutor" type="text" placeholder="Digite su nombre" th:field="*{nombreAutor}" class="form-control" th:errorClass="is-invalid">
+
+                <div th:if="${#fields.hasErrors('nombreAutor')}" th:errors="*{nombreAutor}" class="invalid-feedback"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="apellidoAutor"> Apellido: </label>
+                <input id="apellidoAutor" type="text" placeholder="Digite su apellido" th:field="*{apellidoAutor}" class="form-control" th:errorClass="is-invalid">
+
+                <div th:if="${#fields.hasErrors('apellidoAutor')}" th:errors="*{apellidoAutor}" class="invalid-feedback"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="lugarNacimiento"> Lugar de Nacimiento: </label>
+                <input id="lugarNacimiento" type="text" placeholder="Digite su lugar de nacimiento" th:field="*{lugarNacimiento}" class="form-control" th:errorClass="is-invalid">
+
+                <div th:if="${#fields.hasErrors('lugarNacimiento')}" th:errors="*{lugarNacimiento}" class="invalid-feedback"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="fechaNacimiento"> Fecha Nacimiento: </label>
+                <input id="fechaNacimiento" type="date" th:field="*{fechaNacimiento}" class="form-control" th:errorClass="is-invalid">
+
+                <div th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}" class="invalid-feedback"></div>
+            </div>
+
+            <div class="text-end">
+
+                <button class="btn btn-outline-success"><i fas fa-saves></i> Guardar</button>
+                <a href="/" class="btn btn-outline-dark"><i fas fa-backward></i> Eliminar</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+</body>
+</html>
