@@ -34,8 +34,6 @@ public class Autor {
     @Column(name = "fecha_nacimiento", nullable = false)
     private Integer fechaNacimiento;
 
-    //creamos la relacion con libro, un autor va a tener muchos libros
-    // autor de libro, relacion uno a muchos bidireccional, mappedBy nos dice que la relacion esta en la tabla libro
 
     @OneToMany(mappedBy = "autor")
     private List<Libro> libros;

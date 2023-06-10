@@ -31,6 +31,7 @@ public class Libro {
 
     @NotBlank(message = "Debe ingresar una condicion")
     @Column(name = "condicion_ejemplar", nullable = false, length = 50)
+    private String condicionEjemplar;
 
     @ManyToOne
     @JoinColumn(name = "autor_id")
