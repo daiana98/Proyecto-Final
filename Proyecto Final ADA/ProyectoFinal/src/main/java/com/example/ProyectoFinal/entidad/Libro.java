@@ -12,7 +12,7 @@ import javax.validation.constraints.Past;
 public class Libro {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "isbn")
     private long isbn;
 
     @NotBlank(message = "Debe ingresar un titulo")
@@ -35,4 +35,55 @@ public class Libro {
     @ManyToOne
     @JoinColumn(name = "autor_id")
     private Autor autor;
+
+    public Libro() {
+    }
+
+    public Libro(long isbn, String titulo, Integer anioEdicion, Integer cantEjemplares, Autor autor) {
+        this.isbn = isbn;
+        this.titulo = titulo;
+        this.anioEdicion = anioEdicion;
+        this.cantEjemplares = cantEjemplares;
+        this.autor = autor;
+    }
+
+    public long getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(long isbn) {
+        this.isbn = isbn;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public Integer getAnioEdicion() {
+        return anioEdicion;
+    }
+
+    public void setAnioEdicion(Integer anioEdicion) {
+        this.anioEdicion = anioEdicion;
+    }
+
+    public Integer getCantEjemplares() {
+        return cantEjemplares;
+    }
+
+    public void setCantEjemplares(Integer cantEjemplares) {
+        this.cantEjemplares = cantEjemplares;
+    }
+
+    public Autor getAutor() {
+        return autor;
+    }
+
+    public void setAutor(Autor autor) {
+        this.autor = autor;
+    }
 }
