@@ -1,29 +1,35 @@
 package com.example.ProyectoFinal.servicio;
 
 import com.example.ProyectoFinal.entidad.Libro;
+import com.example.ProyectoFinal.repositorio.LibroRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ImpLibroServicio implements LibroServicio{
+
+    @Autowired
+    private LibroRepositorio libroRepositorio;
+
     @Override
     public List<Libro> listarTodosLosLibros() {
-        return null;
+        return libroRepositorio.findAll();
     }
 
     @Override
     public Libro guardarLibro(Libro libro) {
-        return null;
+        return libroRepositorio.save(libro);
     }
 
     @Override
     public Libro obtenerLibroPorIsbn(Long isbn) {
-        return null;
+        return libroRepositorio.findById(isbn).get();
     }
 
     @Override
-    public Libro obtenerLibroPorAutor(String autor) {
+    public List<Libro> obtenerLibroPorAutor(String autor) {
         return null;
     }
 
@@ -34,11 +40,11 @@ public class ImpLibroServicio implements LibroServicio{
 
     @Override
     public Libro actualizarLibro(Libro libro) {
-        return null;
+        return libroRepositorio.save(libro);
     }
 
     @Override
     public void Eliminar(Libro libro) {
-
+        libroRepositorio.delete(libro);
     }
 }

@@ -15,5 +15,5 @@ public interface AutorServicio {
 
     public Autor actualizarAutor(Autor autor);
 
-    public void Eliminar(Autor autor);
+    public void Eliminar(Integer id);
 }

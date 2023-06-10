@@ -6,6 +6,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import java.util.List;
+
 
 @Entity
 @Table(name = "libro")
@@ -37,15 +39,20 @@ public class Libro {
     @JoinColumn(name = "autor_id")
     private Autor autor;
 
+    @OneToMany(mappedBy = "libro")
+    private List<Prestamo> prestamos;
+
     public Libro() {
     }
 
-    public Libro(long isbn, String titulo, Integer anioEdicion, Integer cantEjemplares, Autor autor) {
+    public Libro(long isbn, String titulo, Integer anioEdicion, Integer cantEjemplares, String condicionEjemplar, Autor autor, List<Prestamo> prestamos) {
         this.isbn = isbn;
         this.titulo = titulo;
         this.anioEdicion = anioEdicion;
         this.cantEjemplares = cantEjemplares;
+        this.condicionEjemplar = condicionEjemplar;
         this.autor = autor;
+        this.prestamos = prestamos;
     }
 
     public long getIsbn() {
@@ -80,11 +87,27 @@ public class Libro {
         this.cantEjemplares = cantEjemplares;
     }
 
+    public String getCondicionEjemplar() {
+        return condicionEjemplar;
+    }
+
+    public void setCondicionEjemplar(String condicionEjemplar) {
+        this.condicionEjemplar = condicionEjemplar;
+    }
+
     public Autor getAutor() {
         return autor;
     }
 
     public void setAutor(Autor autor) {
         this.autor = autor;
+    }
+
+    public List<Prestamo> getPrestamos() {
+        return prestamos;
+    }
+
+    public void setPrestamos(List<Prestamo> prestamos) {
+        this.prestamos = prestamos;
     }
 }
