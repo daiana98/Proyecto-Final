@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Libro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+<div class="row justify-content-center">
+    <div class="col-md6 col-lg-4">
+        <br>
+
+        <h3 style="text-align:center" class="p-3 mb-2 bg-success bg-gradient text-white"> Editar Libro</h3>
+
+        <br>
+
+        <form th:action="@{/editarLibro/{id}(id=${libro.isbn})}" th:object="${libro}" method="post">
+
+            <div class="mb-3">
+                <label for="titulo"> Titulo: </label>
+                <input id="titulo" type="text" placeholder="Digite el titulo" th:field="*{titulo}" class="form-control" th:errorClass="is-invalid">
+
+                <div th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}" class="invalid-feedback"></div>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="anioEdicion"> Año de Edición: </label>
+                <input id="anioEdicion" type="date" th:field="*{anioEdicion}" class="form-control" th:errorClass="is-invalid">
+
+                <div th:if="${#fields.hasErrors('anioEdicion')}" th:errors="*{anioEdicion}" class="invalid-feedback"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="cantEjemplares"> Cantidad de Ejemplares: </label>
+                <input id="cantEjemplares" type="number" placeholder="Digite la cantidad de Ejemplares" th:field="*{cantEjemplares}" class="form-control" th:errorClass="is-invalid">
+
+                <div th:if="${#fields.hasErrors('cantEjemplares')}" th:errors="*{cantEjemplares}" class="invalid-feedback"></div>
+            </div>
+
+
+            <div class="mb-3">
+                <select class="form-control" id="dropDownList">
+                    <option value="0">Seleccione un Autor</option>
+                    <option th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>
+                </select>
+            </div>
+
+            <div class="text-end">
+
+                <button class="btn btn-outline-success"><i fas fa-saves></i> Guardar</button>
+                <a href="/" class="btn btn-outline-dark"><i fas fa-backward></i> Eliminar</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+</html>

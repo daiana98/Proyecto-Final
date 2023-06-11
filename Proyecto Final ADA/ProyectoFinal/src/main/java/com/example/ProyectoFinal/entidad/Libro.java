@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -25,14 +26,14 @@ public class Libro {
     @Past
     @NotNull(message = "Debe ingresar un anio de Ediciòn")
     @Column(name = "anio_edicion", nullable = false)
-    private Integer anioEdicion;
+    private LocalDate anioEdicion;
 
-    @NotBlank(message = "Debe ingresar una cantidad")
+    @NotNull(message = "Debe ingresar una cantidad")
     @Column(name = "cant_ejemplares", nullable = false)
     private Integer cantEjemplares;
 
-    @NotBlank(message = "Debe ingresar una condicion")
-    @Column(name = "condicion_ejemplar", nullable = false, length = 50)
+    //@NotBlank(message = "Debe ingresar una condicion")
+    @Column(name = "condicion_ejemplar", length = 50)
     private String condicionEjemplar;
 
     @ManyToOne
@@ -45,7 +46,7 @@ public class Libro {
     public Libro() {
     }
 
-    public Libro(long isbn, String titulo, Integer anioEdicion, Integer cantEjemplares, String condicionEjemplar, Autor autor, List<Prestamo> prestamos) {
+    public Libro(long isbn, String titulo, LocalDate anioEdicion, Integer cantEjemplares, String condicionEjemplar, Autor autor, List<Prestamo> prestamos) {
         this.isbn = isbn;
         this.titulo = titulo;
         this.anioEdicion = anioEdicion;
@@ -54,6 +55,7 @@ public class Libro {
         this.autor = autor;
         this.prestamos = prestamos;
     }
+
 
     public long getIsbn() {
         return isbn;
@@ -71,11 +73,11 @@ public class Libro {
         this.titulo = titulo;
     }
 
-    public Integer getAnioEdicion() {
+    public LocalDate getAnioEdicion() {
         return anioEdicion;
     }
 
-    public void setAnioEdicion(Integer anioEdicion) {
+    public void setAnioEdicion(LocalDate anioEdicion) {
         this.anioEdicion = anioEdicion;
     }
 
