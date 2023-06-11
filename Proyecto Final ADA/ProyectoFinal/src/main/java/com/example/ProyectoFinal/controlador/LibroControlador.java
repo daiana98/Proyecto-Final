@@ -70,8 +70,10 @@ public class LibroControlador {
     public String mostrarFormularioDeEditarLibro(@PathVariable Long id, Model modelo){
 
         Libro libro = libroServicio.obtenerLibroPorIsbn(id);//recuperamos el autor
+        List<Autor> autores = autorServicio.listarTodosLosAutores();
         //modelamos el autor
         modelo.addAttribute("libro", libro);
+        modelo.addAttribute("autoresList", autores);
 
         //retornamos una vissta retornamos el ormualrio edita html
         return "editar_libro";
@@ -92,6 +94,7 @@ public class LibroControlador {
         libroAbd.setTitulo(libro.getTitulo());
         libroAbd.setAnioEdicion(libro.getAnioEdicion());
         libroAbd.setCantEjemplares(libro.getCantEjemplares());
+        libroAbd.setAutor(libro.getAutor());
         if (libro.getCantEjemplares() <= 0){
             libroAbd.setCondicionEjemplar("SIN_STOCK");
         }else{
@@ -105,7 +108,7 @@ public class LibroControlador {
         redirectAttributes.addFlashAttribute("msgExito", "El libro se ha actualizado con exito");
 
         //returnamos la pagina inicial con el / por uque esa es la incial
-        return "redirect:/listar";
+        return "redirect:/listarLibros";
     }
 
     @PostMapping("/eliminarLibro/{id}")
@@ -118,7 +121,7 @@ public class LibroControlador {
         redirectAttributes.addFlashAttribute("msgExito", "El libro se ha eliminado con Exito");
 
         //retornamos el index
-        return "redirect:/listar";
+        return "redirect:/listarLibros";
     }
 
     /*

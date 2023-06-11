@@ -40,9 +40,9 @@
 
 
             <div class="mb-3">
-                <select class="form-control" id="dropDownList">
-                    <option value="0">Seleccione un Autor</option>
-                    <option th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>
+                <label class="col-md-2" for="autor">Autor: </label>
+                <select th:field="*{autor}" class="form-control form-control-sm col-md-6" id="autor">
+                    <option th:each="autor:${autoresList}" th:value="${autor.Id}" th:text="${autor.nombreAutor}"></option>
                 </select>
             </div>
 
