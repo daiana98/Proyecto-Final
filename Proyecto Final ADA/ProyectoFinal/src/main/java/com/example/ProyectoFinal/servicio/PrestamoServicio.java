@@ -14,5 +14,5 @@ public interface PrestamoServicio {
 
     public Prestamo actualizarPrestamo(Prestamo prestamo);
 
-    public void Eliminar(Integer id);
+    public void eliminarPrestamo(Integer id);
 }

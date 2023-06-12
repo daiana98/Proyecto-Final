@@ -1,8 +1,10 @@
 package com.example.ProyectoFinal.controlador;
 
 import com.example.ProyectoFinal.entidad.Autor;
+import com.example.ProyectoFinal.entidad.Lector;
 import com.example.ProyectoFinal.entidad.Libro;
 import com.example.ProyectoFinal.servicio.AutorServicio;
+import com.example.ProyectoFinal.servicio.LectorServicio;
 import com.example.ProyectoFinal.servicio.LibroServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,8 @@ public class LibroControlador {
     private LibroServicio libroServicio;
     @Autowired
     private AutorServicio autorServicio;
+
+
 
     /*@GetMapping("/")
     public String verPaginaDeInicio(Model modelo){
@@ -45,8 +49,11 @@ public class LibroControlador {
     public String mostrarFormularioDeRegistrarLibro(Model modelo){
 
         List<Autor> autores = autorServicio.listarTodosLosAutores();
+
+
         modelo.addAttribute("libro", new Libro());
         modelo.addAttribute("autoresList", autores);
+
 
         return "libro/nuevo_libro";
     }

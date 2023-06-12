@@ -33,7 +33,7 @@ public class ImpPrestamoServicio implements PrestamoServicio{
     }
 
     @Override
-    public void Eliminar(Integer id) {
+    public void eliminarPrestamo(Integer id) {
         prestamoRepositorio.deleteById(id);
     }
 }

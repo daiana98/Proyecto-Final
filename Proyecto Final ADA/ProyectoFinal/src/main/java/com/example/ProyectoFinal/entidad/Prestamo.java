@@ -18,11 +18,11 @@ public class Prestamo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
 
-    @NotBlank(message = "Debe ingresar un ISBN")
-    @Column(name = "isbn")
-    private long isbn;
 
-    @NotBlank(message = "Debe ingresar un titulo")
+    @Column(name = "isbn")
+    private Long isbn;
+
+
     @Column(name = "titulo", length = 145, nullable = false)
     private String titulo;
 
@@ -46,7 +46,7 @@ public class Prestamo {
     public Prestamo() {
     }
 
-    public Prestamo(Integer id, long isbn, String titulo, LocalDateTime fechaRegistro, LocalDate fechaMaxDevolucion, Lector lector, Libro libro) {
+    public Prestamo(Integer id, Long isbn, String titulo, LocalDateTime fechaRegistro, LocalDate fechaMaxDevolucion, Lector lector, Libro libro) {
         Id = id;
         this.isbn = isbn;
         this.titulo = titulo;
@@ -64,11 +64,11 @@ public class Prestamo {
         Id = id;
     }
 
-    public long getIsbn() {
+    public Long getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(long isbn) {
+    public void setIsbn(Long isbn) {
         this.isbn = isbn;
     }
 
@@ -110,5 +110,10 @@ public class Prestamo {
 
     public void setLibro(Libro libro) {
         this.libro = libro;
+    }
+
+    @PrePersist
+    public void asignarFechaRegistros(){
+        fechaRegistro = LocalDateTime.now();//toma el momento exacto que estamos registrando
     }
 }
