@@ -17,4 +17,8 @@ public interface LibroServicio {
     public Libro actualizarLibro(Libro libro);
 
     public void eliminarLibro(Long id);
+
+    public List<Libro> librosDisponibles();
+
+    //public void actualizarStockLibros(Libro libro);
 }

@@ -3,10 +3,7 @@ package com.example.ProyectoFinal.entidad;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -36,10 +33,12 @@ public class Prestamo {
     private LocalDate fechaMaxDevolucion;
 
     @ManyToOne
+    //@NotEmpty(message = "Debe seleccionar un lector")
     @JoinColumn(name = "lector_id")
     private Lector lector;
 
     @ManyToOne
+    //@NotEmpty(message = "Debe Seleccionar un libro")
     @JoinColumn(name = "isbn_id")
     private Libro libro;
 

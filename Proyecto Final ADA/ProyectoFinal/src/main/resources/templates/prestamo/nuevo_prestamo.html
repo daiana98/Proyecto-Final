@@ -32,6 +32,7 @@
                     <datalist id="lector-lista">
                         <option th:each="lectores:${lectoresList}" th:value="${lectores.Id}" th:text="${lectores.nombreLector}"></option>
                     </datalist>
+                    <div th:if="${#fields.hasErrors('lector')}" th:errors="*{lector}" class="invalid-feedback"></div>
                 </div>
             </div>
 
@@ -42,6 +43,7 @@
                     <datalist id="libros-lista">
                         <option th:each="libros:${librosIsbnList}" th:value="${libros.isbn}" th:text="${libros.titulo}">Libros</option>
                     </datalist>
+                    <div th:if="${#fields.hasErrors('libro')}" th:errors="*{libro}" class="invalid-feedback"></div>
                 </div>
             </div>
 

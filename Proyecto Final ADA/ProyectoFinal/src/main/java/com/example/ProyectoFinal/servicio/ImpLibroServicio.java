@@ -5,6 +5,7 @@ import com.example.ProyectoFinal.repositorio.LibroRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,4 +39,19 @@ public class ImpLibroServicio implements LibroServicio{
     public void eliminarLibro(Long id) {
         libroRepositorio.deleteById(id);
     }
+
+    public List<Libro> librosDisponibles(){
+
+        return libroRepositorio.findBycondicionEjemplar("CON_STOCK");
+    }
+
+    /*public void actualizarStockLibros(Libro libro){
+        Integer cantEjemplares = libro.getCantEjemplares()-1;
+        Long isbn = libro.getIsbn();
+        libroRepositorio.updateCantEjemplares(cantEjemplares, isbn);
+
+        if (cantEjemplares == 0){
+            libroRepositorio.updatecondicionEjemplar("SIN_STOCK", isbn);
+        }
+    }*/
 }

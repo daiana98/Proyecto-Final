@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -42,7 +43,7 @@ public class PrestamoControlador {
 
     @GetMapping("/nuevoPrestamo")
     public String mostrarFormularioDeRegistrarPrestamo(Model modelo){
-        List<Libro> libros = libroServicio.listarTodosLosLibros();
+        List<Libro> libros = libroServicio.librosDisponibles();
         List<Lector> lectores = lectorServicio.listarTodosLosLectores();
 
         modelo.addAttribute("prestamo", new Prestamo());
@@ -55,7 +56,8 @@ public class PrestamoControlador {
     @PostMapping("/savePrestamo")
     public String guardarPrestamo(@Validated Prestamo prestamo, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model modelo){
 
-        List<Libro> libros = libroServicio.listarTodosLosLibros();
+        List<Libro> libros = libroServicio.librosDisponibles();
+
         List<Lector> lectores = lectorServicio.listarTodosLosLectores();
 
         if (bindingResult.hasErrors()){//true errores
@@ -68,6 +70,18 @@ public class PrestamoControlador {
 
         prestamo.setTitulo(prestamo.getLibro().getTitulo());//guardo el titulo del libro
         prestamo.setIsbn(prestamo.getLibro().getIsbn());//guardo el isbn del libro
+
+        //recupero el libro
+        Libro libro = prestamo.getLibro();
+        //bajar el stock
+        libro.setCantEjemplares(libro.getCantEjemplares()-1);
+        //cambio la condicion stock
+        if (libro.getCantEjemplares() == 0){
+            libro.setCondicionEjemplar("SIN_STOCK");
+        }
+
+        libroServicio.guardarLibro(libro);
+        //libroServicio.actualizarStockLibros(prestamo.getLibro());//nueva actualizo stokc NO UNCIONO
 
         prestamoServicio.guardarPrestamo(prestamo);
         redirectAttributes.addFlashAttribute("msgExito", "El prestamo ha sido agregado con exito");
@@ -110,6 +124,17 @@ public class PrestamoControlador {
         prestamoAbd.setLibro(prestamo.getLibro());
         prestamoAbd.setLector(prestamo.getLector());
 
+        //recupero el libro
+        Libro libro = prestamo.getLibro();
+        //bajar el stock
+        libro.setCantEjemplares(libro.getCantEjemplares()-1);
+        //cambio la condicion stock
+        if (libro.getCantEjemplares() == 0){
+            libro.setCondicionEjemplar("SIN_STOCK");
+        }
+        libroServicio.guardarLibro(libro);//actualizo el libro
+        //libroServicio.actualizarStockLibros(prestamo.getLibro());//nueva actualizo stokc
+
         //guardamos el autor ne el ormulario
         prestamoServicio.actualizarPrestamo(prestamoAbd);
 
@@ -124,6 +149,18 @@ public class PrestamoControlador {
     public String eliminarPrestamoId(@PathVariable Integer id, RedirectAttributes redirectAttributes){
         //muestra ek mensajito el redirect atribute aca lo usaremos para saber si esta ssgguro de que desea eliminar
 
+        //sumo un libro
+        Prestamo prestamo = prestamoServicio.obtenerPrestamoPorId(id);
+        Libro libro = libroServicio.obtenerLibroPorIsbn(prestamo.getIsbn());
+
+        //sumo un libro
+        Integer cantLibros = libro.getCantEjemplares();
+        libro.setCantEjemplares(cantLibros+1);
+        if (cantLibros == 0){
+            libro.setCondicionEjemplar("CON_STOCK");
+        }
+        libroServicio.guardarLibro(libro);
+
         prestamoServicio.eliminarPrestamo(id);
 
         redirectAttributes.addFlashAttribute("msgExito", "El prestamo se ha eliminado con Exito");
@@ -131,5 +168,6 @@ public class PrestamoControlador {
         //retornamos el index*/
         return "redirect:/listar";
     }
+
 
 }
