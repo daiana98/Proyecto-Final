@@ -34,14 +34,14 @@ public class AutorControlador {
 
         modelo.addAttribute("autores",autores);
 
-        return "index_autor";
+        return "autor/index_autor";
     }
 
     @GetMapping("/nuevo")
     public String mostrarFormularioDeRegistrarAutor(Model modelo){
         modelo.addAttribute("autor", new Autor());
 
-        return "nuevo_autor";
+        return "autor/nuevo_autor";
     }
     //biding manejo de errores con redirectAtribute, para recibir los errores de validacion
     @PostMapping("/save")
@@ -49,7 +49,7 @@ public class AutorControlador {
 
         if (bindingResult.hasErrors()){//true errores
             modelo.addAttribute("autor",autor);
-            return "nuevo_autor";
+            return "autor/nuevo_autor";
         }
 
         autorServicio.guardarAutor(autor);
@@ -66,7 +66,7 @@ public class AutorControlador {
         modelo.addAttribute("autor", autor);
 
         //retornamos una vissta retornamos el ormualrio edita html
-        return "editar_autor";
+        return "autor/editar_autor";
     }
 
     //un post por que vamos a alojar un dato el que envia a la BD, path variable nos ayuda a modelar el id, validated para validar el objeto contacto
@@ -78,7 +78,7 @@ public class AutorControlador {
             //
             model.addAttribute("autor", autor);
 
-            return "editar_autor";
+            return "autor/editar_autor";
         }
         //modelamos el objeto en web
         autorAbd.setNombreAutor(autor.getNombreAutor());

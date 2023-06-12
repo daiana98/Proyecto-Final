@@ -3,6 +3,7 @@ package com.example.ProyectoFinal.entidad;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -16,7 +17,8 @@ public class Libro {
 
     @Id
     @Column(name = "isbn")
-    private long isbn;
+    @Min(1)
+    private Long isbn;
 
     @NotBlank(message = "Debe ingresar un titulo")
     @Column(name = "titulo", length = 145, nullable = false)
@@ -29,6 +31,7 @@ public class Libro {
     private LocalDate anioEdicion;
 
     @NotNull(message = "Debe ingresar una cantidad")
+    @Min(1)
     @Column(name = "cant_ejemplares", nullable = false)
     private Integer cantEjemplares;
 
@@ -46,7 +49,7 @@ public class Libro {
     public Libro() {
     }
 
-    public Libro(long isbn, String titulo, LocalDate anioEdicion, Integer cantEjemplares, String condicionEjemplar, Autor autor, List<Prestamo> prestamos) {
+    public Libro(Long isbn, String titulo, LocalDate anioEdicion, Integer cantEjemplares, String condicionEjemplar, Autor autor, List<Prestamo> prestamos) {
         this.isbn = isbn;
         this.titulo = titulo;
         this.anioEdicion = anioEdicion;
@@ -57,11 +60,11 @@ public class Libro {
     }
 
 
-    public long getIsbn() {
+    public Long getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(long isbn) {
+    public void setIsbn(Long isbn) {
         this.isbn = isbn;
     }
 

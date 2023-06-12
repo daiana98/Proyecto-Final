@@ -38,7 +38,7 @@ public class LibroControlador {
 
         modelo.addAttribute("libros",libros);
 
-        return "index_libro";
+        return "libro/index_libro";
     }
 
     @GetMapping("/nuevoLibro")
@@ -48,15 +48,17 @@ public class LibroControlador {
         modelo.addAttribute("libro", new Libro());
         modelo.addAttribute("autoresList", autores);
 
-        return "nuevo_libro";
+        return "libro/nuevo_libro";
     }
     //biding manejo de errores con redirectAtribute, para recibir los errores de validacion
     @PostMapping("/saveLibro")
     public String guardarLibro(@Validated Libro libro, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model modelo){
+        List<Autor> autores = autorServicio.listarTodosLosAutores();
 
         if (bindingResult.hasErrors()){//true errores
             modelo.addAttribute("libro",libro);
-            return "nuevo_libro";
+            modelo.addAttribute("autoresList", autores);
+            return "libro/nuevo_libro";
         }
         libro.setCondicionEjemplar("CON_STOCK");
 
@@ -76,7 +78,7 @@ public class LibroControlador {
         modelo.addAttribute("autoresList", autores);
 
         //retornamos una vissta retornamos el ormualrio edita html
-        return "editar_libro";
+        return "libro/editar_libro";
     }
 
     //un post por que vamos a alojar un dato el que envia a la BD, path variable nos ayuda a modelar el id, validated para validar el objeto contacto
@@ -84,25 +86,25 @@ public class LibroControlador {
     @PostMapping("/editarLibro/{id}")
     public String actualizarLibro(@PathVariable Long id, @Validated Libro libro, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
         Libro libroAbd = libroServicio.obtenerLibroPorIsbn(id);
+        List<Autor> autores = autorServicio.listarTodosLosAutores();
+
         if (bindingResult.hasErrors()){//nos ayuda a saber si hubo error en el omulario
 
             model.addAttribute("libro", libro);
+            model.addAttribute("autoresList", autores);
 
-            return "editar_libro";
+            return "libro/editar_libro";
         }
         //modelamos el objeto en web
         libroAbd.setTitulo(libro.getTitulo());
         libroAbd.setAnioEdicion(libro.getAnioEdicion());
         libroAbd.setCantEjemplares(libro.getCantEjemplares());
         libroAbd.setAutor(libro.getAutor());
-        if (libro.getCantEjemplares() <= 0){
-            libroAbd.setCondicionEjemplar("SIN_STOCK");
-        }else{
-            libroAbd.setCondicionEjemplar("CON_STOCK");
-        }
+        //libroAbd.setCondicionEjemplar("CON_STOCK");
+
 
         //guardamos el autor ne el ormulario
-        libroServicio.actualizarLibro(libroAbd);
+        libroServicio.guardarLibro(libroAbd);
 
         //redirecionamos para que sepa que esta ok
         redirectAttributes.addFlashAttribute("msgExito", "El libro se ha actualizado con exito");
@@ -112,11 +114,11 @@ public class LibroControlador {
     }
 
     @PostMapping("/eliminarLibro/{id}")
-    public String eliminarLibro(@PathVariable Long isbn, RedirectAttributes redirectAttributes){
+    public String eliminarLibroPorIsbn(@PathVariable Long id, RedirectAttributes redirectAttributes){
         //muestra ek mensajito el redirect atribute aca lo usaremos para saber si esta ssgguro de que desea eliminar
-        Libro libro = libroServicio.obtenerLibroPorIsbn(isbn);
 
-        libroServicio.Eliminar(libro);
+
+        libroServicio.eliminarLibro(id);
 
         redirectAttributes.addFlashAttribute("msgExito", "El libro se ha eliminado con Exito");
 
@@ -124,17 +126,4 @@ public class LibroControlador {
         return "redirect:/listarLibros";
     }
 
-    /*
-    @RequestMapping(value = "/populateDropDownList", method = RequestMethod.GET)
-    public String populateList(Model model) {
-        List<String> options = new ArrayList<String>();
-
-        List<Autor> autores = autorServicio.listarTodosLosAutores();
-        for (Autor autor: autores) {
-            options.add(autor.getNombreAutor());
-        }
-
-        model.addAttribute("options", options);
-        return "nuevo_libro";
-    }*/
 }

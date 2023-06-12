@@ -27,6 +27,7 @@
 
     <thead class="table-success">
     <tr>
+      <td>ISBN</td>
       <td>Titulo</td>
       <td>Año de Edición</td>
       <td>Cantidad de Ejemplares</td>
@@ -38,6 +39,7 @@
 
     <tbody>
     <tr th:each="libro : ${libros}">
+      <td th:text="${libro.isbn}">ISBN</td>
       <td th:text="${libro.titulo}">Nombre</td>
       <td th:text="${#temporals.format(libro.anioEdicion,'dd/MM/YYYY')}"></td>
       <td th:text="${libro.cantEjemplares}"></td>

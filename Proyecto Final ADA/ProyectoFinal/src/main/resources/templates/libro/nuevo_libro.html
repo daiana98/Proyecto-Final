@@ -2,19 +2,27 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Editar Libro</title>
+    <title>Registro de Autores</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 </head>
 <body>
 <div class="row justify-content-center">
     <div class="col-md6 col-lg-4">
         <br>
 
-        <h3 style="text-align:center" class="p-3 mb-2 bg-success bg-gradient text-white"> Editar Libro</h3>
+        <h3 style="text-align:center" class="p-3 mb-2 bg-success bg-gradient text-white"> Registro de Libros</h3>
 
         <br>
 
-        <form th:action="@{/editarLibro/{id}(id=${libro.isbn})}" th:object="${libro}" method="post">
+        <form th:action="@{/saveLibro}" th:object="${libro}" method="post">
+
+            <div class="mb-3">
+                <label for="isbn"> ISBN: </label>
+                <input id="isbn" type="number" placeholder="Digite el ISBN" th:field="*{isbn}" class="form-control" th:errorClass="is-invalid">
+
+                <div th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}" class="invalid-feedback"></div>
+            </div>
 
             <div class="mb-3">
                 <label for="titulo"> Titulo: </label>
@@ -38,21 +46,28 @@
                 <div th:if="${#fields.hasErrors('cantEjemplares')}" th:errors="*{cantEjemplares}" class="invalid-feedback"></div>
             </div>
 
-
-            <div class="mb-3">
-                <label class="col-md-2" for="autor">Autor: </label>
+             <div class="mb-3">
+                 <label class="col-md-2" for="autor">Autor: </label>
                 <select th:field="*{autor}" class="form-control form-control-sm col-md-6" id="autor">
                     <option th:each="autor:${autoresList}" th:value="${autor.Id}" th:text="${autor.nombreAutor}"></option>
                 </select>
             </div>
 
+            <!--<div class="mb-3">
+                <label for="autor"> Autor: </label>
+                <input id="autor" type="number" placeholder="Digite el ID del autor" th:field="*{autor}" class="form-control" th:errorClass="is-invalid">
+
+                <div th:if="${#fields.hasErrors('autor')}" th:errors="*{autor}" class="invalid-feedback"></div>
+            </div>-->
+
             <div class="text-end">
 
                 <button class="btn btn-outline-success"><i fas fa-saves></i> Guardar</button>
-                <a href="/" class="btn btn-outline-dark"><i fas fa-backward></i> Eliminar</a>
+                <a th:href="@{/listarLibros}" class="btn btn-outline-dark"><i fas fa-backward></i> Eliminar</a>
             </div>
 
         </form>
     </div>
 </div>
+</body>
 </html>

@@ -13,11 +13,8 @@ public interface LibroServicio {
 
     public Libro obtenerLibroPorIsbn(Long isbn);
 
-    public List<Libro> obtenerLibroPorAutor(String autor);
-
-    public Libro obtenerLibroPorTitulo(String titulo);
 
     public Libro actualizarLibro(Libro libro);
 
-    public void Eliminar(Libro libro);
+    public void eliminarLibro(Long id);
 }

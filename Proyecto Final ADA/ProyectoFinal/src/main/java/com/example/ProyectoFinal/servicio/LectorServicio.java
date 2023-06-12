@@ -14,5 +14,5 @@ public interface LectorServicio {
 
     public Lector actualizarLector(Lector lector);
 
-    public void Eliminar(Integer id);
+    public void eliminarLectorId(Integer id);
 }

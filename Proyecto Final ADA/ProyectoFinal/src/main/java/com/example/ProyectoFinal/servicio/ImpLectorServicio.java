@@ -33,7 +33,7 @@ public class ImpLectorServicio implements LectorServicio{
     }
 
     @Override
-    public void Eliminar(Integer id) {
+    public void eliminarLectorId(Integer id) {
         lectorRepositorio.deleteById(id);
     }
 }

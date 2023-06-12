@@ -28,15 +28,6 @@ public class ImpLibroServicio implements LibroServicio{
         return libroRepositorio.findById(isbn).get();
     }
 
-    @Override
-    public List<Libro> obtenerLibroPorAutor(String autor) {
-        return null;
-    }
-
-    @Override
-    public Libro obtenerLibroPorTitulo(String titulo) {
-        return null;
-    }
 
     @Override
     public Libro actualizarLibro(Libro libro) {
@@ -44,7 +35,7 @@ public class ImpLibroServicio implements LibroServicio{
     }
 
     @Override
-    public void Eliminar(Libro libro) {
-        libroRepositorio.delete(libro);
+    public void eliminarLibro(Long id) {
+        libroRepositorio.deleteById(id);
     }
 }
