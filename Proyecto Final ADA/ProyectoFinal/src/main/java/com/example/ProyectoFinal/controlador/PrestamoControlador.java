@@ -92,13 +92,13 @@ public class PrestamoControlador {
     @GetMapping("/editarPrestamo/{id}")
     public String mostrarFormularioDeEditarPrestamo(@PathVariable Integer id, Model modelo){
 
-        List<Libro> libros = libroServicio.librosDisponibles();
-        List<Lector> lectores = lectorServicio.listarTodosLosLectores();
+        //List<Libro> libros = libroServicio.librosDisponibles();
+        //List<Lector> lectores = lectorServicio.listarTodosLosLectores();
 
         Prestamo prestamo = prestamoServicio.obtenerPrestamoPorId(id);
         modelo.addAttribute("prestamo", prestamo);
-        modelo.addAttribute("librosIsbnList", libros);
-        modelo.addAttribute("lectoresList", lectores);
+        //modelo.addAttribute("librosIsbnList", libros);
+        //modelo.addAttribute("lectoresList", lectores);
 
         //retornamos una vissta retornamos el ormualrio edita html
         return "prestamo/editar_prestamo";
@@ -111,33 +111,33 @@ public class PrestamoControlador {
 
         Prestamo prestamoAbd = prestamoServicio.obtenerPrestamoPorId(id);
 
-        List<Libro> libros = libroServicio.listarTodosLosLibros();
-        List<Lector> lectores = lectorServicio.listarTodosLosLectores();
+        //List<Libro> libros = libroServicio.listarTodosLosLibros();
+        //List<Lector> lectores = lectorServicio.listarTodosLosLectores();
 
         if (bindingResult.hasErrors()){//nos ayuda a saber si hubo error en el omulario
             //
             model.addAttribute("prestamo", prestamo);
-            model.addAttribute("librosIsbnList", libros);
-            model.addAttribute("lectoresList", lectores);
+            //model.addAttribute("librosIsbnList", libros);
+            //model.addAttribute("lectoresList", lectores);
 
             return "prestamo/editar_prestamo";
         }
-
+        prestamoAbd.setFechaMaxDevolucion(prestamo.getFechaMaxDevolucion());
         //modelamos el objeto en web
-        prestamoAbd.setTitulo(prestamo.getLibro().getTitulo());//guardo el titulo del libro
-        prestamoAbd.setIsbn(prestamo.getLibro().getIsbn());//guardo el isbn del libro
-        prestamoAbd.setLibro(prestamo.getLibro());
-        prestamoAbd.setLector(prestamo.getLector());
+        //prestamoAbd.setTitulo(prestamo.getLibro().getTitulo());//guardo el titulo del libro
+        //prestamoAbd.setIsbn(prestamo.getLibro().getIsbn());//guardo el isbn del libro
+        //prestamoAbd.setLibro(prestamo.getLibro());
+        //prestamoAbd.setLector(prestamo.getLector());
 
         //recupero el libro
-        Libro libro = prestamo.getLibro();
+        //Libro libro = prestamo.getLibro();
         //bajar el stock
-        libro.setCantEjemplares(libro.getCantEjemplares()-1);
+        //libro.setCantEjemplares(libro.getCantEjemplares()-1);
         //cambio la condicion stock
-        if (libro.getCantEjemplares() == 0){
-            libro.setCondicionEjemplar("SIN_STOCK");
-        }
-        libroServicio.guardarLibro(libro);//actualizo el libro
+        //if (libro.getCantEjemplares() == 0){
+            //libro.setCondicionEjemplar("SIN_STOCK");
+        //}
+        //libroServicio.guardarLibro(libro);//actualizo el libro
         //libroServicio.actualizarStockLibros(prestamo.getLibro());//nueva actualizo stokc
 
         //guardamos el autor ne el ormulario
