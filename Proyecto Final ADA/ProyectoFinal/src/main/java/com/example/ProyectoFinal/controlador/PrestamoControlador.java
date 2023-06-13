@@ -92,8 +92,13 @@ public class PrestamoControlador {
     @GetMapping("/editarPrestamo/{id}")
     public String mostrarFormularioDeEditarPrestamo(@PathVariable Integer id, Model modelo){
 
+        List<Libro> libros = libroServicio.librosDisponibles();
+        List<Lector> lectores = lectorServicio.listarTodosLosLectores();
+
         Prestamo prestamo = prestamoServicio.obtenerPrestamoPorId(id);
         modelo.addAttribute("prestamo", prestamo);
+        modelo.addAttribute("librosIsbnList", libros);
+        modelo.addAttribute("lectoresList", lectores);
 
         //retornamos una vissta retornamos el ormualrio edita html
         return "prestamo/editar_prestamo";

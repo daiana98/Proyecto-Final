@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -100,12 +101,26 @@ public class AutorControlador {
     public String eliminarAutor(@PathVariable Integer id, RedirectAttributes redirectAttributes){
         //muestra ek mensajito el redirect atribute aca lo usaremos para saber si esta ssgguro de que desea eliminar
         Autor autor = autorServicio.obtenerAutorPorId(id);
+        if (autor.getLibros().isEmpty()){
+            autorServicio.Eliminar(id);
 
+            redirectAttributes.addFlashAttribute("msgExito", "El autor se ha eliminado con Exito");
+            return "redirect:/listar";
+        }
+
+        redirectAttributes.addFlashAttribute("msgError", "El autor no se puede eliminar, verifique los libros con este Autor");
+        //retornamos el index*/
+        /*model.addAttribute("bindingResult", bindingResult);
+
+        if (bindingResult.hasErrors()){
+            //model.addAttribute("autor", autor);
+            redirectAttributes.addFlashAttribute("msgError", "El autor no se puede eliminar, verifique los libros con este Autor");
+            return "autor/error_autor";
+        }
         autorServicio.Eliminar(id);
-
         redirectAttributes.addFlashAttribute("msgExito", "El autor se ha eliminado con Exito");
-
-        //retornamos el index
+*/
         return "redirect:/listar";
+
     }
 }

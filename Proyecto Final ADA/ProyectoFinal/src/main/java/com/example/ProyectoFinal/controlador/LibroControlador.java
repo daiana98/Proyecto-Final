@@ -124,10 +124,15 @@ public class LibroControlador {
     public String eliminarLibroPorIsbn(@PathVariable Long id, RedirectAttributes redirectAttributes){
         //muestra ek mensajito el redirect atribute aca lo usaremos para saber si esta ssgguro de que desea eliminar
 
+        Libro libro = libroServicio.obtenerLibroPorIsbn(id);
+        if (libro.getPrestamos().isEmpty()){
+            libroServicio.eliminarLibro(id);
 
-        libroServicio.eliminarLibro(id);
+            redirectAttributes.addFlashAttribute("msgExito", "El libro se ha eliminado con Exito");
+            return "redirect:/listarLibros";
+        }
 
-        redirectAttributes.addFlashAttribute("msgExito", "El libro se ha eliminado con Exito");
+        redirectAttributes.addFlashAttribute("msgError", "El libro no se puede eliminar, verifique los prestamos con este Libro");
 
         //retornamos el index
         return "redirect:/listarLibros";

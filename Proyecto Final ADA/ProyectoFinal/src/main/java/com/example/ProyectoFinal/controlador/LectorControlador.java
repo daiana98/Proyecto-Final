@@ -2,6 +2,7 @@ package com.example.ProyectoFinal.controlador;
 
 import com.example.ProyectoFinal.entidad.Autor;
 import com.example.ProyectoFinal.entidad.Lector;
+import com.example.ProyectoFinal.entidad.Libro;
 import com.example.ProyectoFinal.servicio.LectorServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -92,9 +93,15 @@ public class LectorControlador {
     @PostMapping("/eliminarLector/{id}")
     public String eliminarLectorPorId(@PathVariable Integer id, RedirectAttributes redirectAttributes){
         //muestra ek mensajito el redirect atribute aca lo usaremos para saber si esta ssgguro de que desea eliminar
-        lectorServicio.eliminarLectorId(id);
+        Lector lector = lectorServicio.obtenerLectorPorId(id);
+        if (lector.getPrestamos().isEmpty()){
+            lectorServicio.eliminarLectorId(id);
 
-        redirectAttributes.addFlashAttribute("msgExito", "El lector se ha eliminado con Exito");
+            redirectAttributes.addFlashAttribute("msgExito", "El lector se ha eliminado con Exito");
+            return "redirect:/listarLectores";
+        }
+
+        redirectAttributes.addFlashAttribute("msgError", "El lector no se puede eliminar, verifique los prestamos con este Libro");
 
         //retornamos el index
         return "redirect:/listarLectores";

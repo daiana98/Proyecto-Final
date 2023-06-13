@@ -31,6 +31,11 @@
         <button type="button" class="btn btn-close" data-bs-dismiss="alert"></button>
     </div>
 
+    <div th:if="${msgError != null}" class="alert alert-danger alert dismissible">
+        [[${msgError}]]
+        <button type="button" class="btn btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
     <br>
 
     <h1 style="text-align:center" class="p-3 mb-2 bg-secondary bg-gradient text-black"> Lista de Lectores</h1>
