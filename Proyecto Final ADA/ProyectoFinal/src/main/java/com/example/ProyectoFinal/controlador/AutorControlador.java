@@ -2,6 +2,7 @@ package com.example.ProyectoFinal.controlador;
 
 import com.example.ProyectoFinal.entidad.Autor;
 import com.example.ProyectoFinal.servicio.AutorServicio;
+import com.example.ProyectoFinal.servicio.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,15 +20,34 @@ import java.util.List;
 public class AutorControlador {
     @Autowired
     private AutorServicio autorServicio;
+    @Autowired
+    private UsuarioServicio Uservicio;
+
+
+    @GetMapping("/login")
+    public String iniciarSesion(){
+        return "seguridad/login";
+    }
 
     @GetMapping("/")
+    public String verPaginaDeInicio(Model modelo){
+        modelo.addAttribute("usuarios", Uservicio.listarUsuarios());
+        return "seguridad/index";
+    }
+
+    //Pagina de inicio del sistema
+    @GetMapping("/home")
+    public String home(){
+        return "home";
+    }
+    /*@GetMapping("/")
     public String verPaginaDeInicio(Model modelo){
         List<Autor> autores = autorServicio.listarTodosLosAutores();
 
         modelo.addAttribute("autores",autores);
 
         return "index";
-    }
+    }*/
 
     @GetMapping("/listar")
     public String verPaginaDeInicioAutor(Model modelo){
