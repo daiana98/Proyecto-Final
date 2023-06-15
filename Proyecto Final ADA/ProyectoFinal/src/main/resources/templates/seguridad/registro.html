@@ -13,70 +13,82 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
           crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/57c5fed91e.js" crossorigin="anonymous"></script>
+    <style>
+        body{background-color: #f0f2f5;}
+        #inicio{color: #fff;}
+        #menu{background-color: #1877f2;}
+        #login-submit{display:block;
+                margin-right: auto;
+                margin-left: auto;}
+        form{font-size:16px;align-items: center; justify-content: center;}
+        #login-submit{background-color: #1877f2;width: 200px; padding:0 16px;border-radius:6px;font-size:20px;line-height: 48px;color:#fff;}
+        #crear{background-color: #42b72a;height: max-content;display:block;margin-right: auto;margin-left: auto;width: 332px; padding:0 16px;border-radius:6px;font-size:20px;line-height: 48px;color:#fff;}
+        #nombre{font-size: 17px;padding:0 16px; border-radius:6px;width: 332px;height: max-content;display:block;margin-right: auto;margin-left: auto;line-height: 48px;}
+        #apellido{font-size: 17px;padding:0 16px; border-radius:6px;width: 332px;height: max-content;display:block;margin-right: auto;margin-left: auto;line-height: 48px;}
+        #email{font-size: 17px;padding:0 16px; border-radius:6px;width: 332px;height: max-content;display:block;margin-right: auto;margin-left: auto;line-height: 48px;}
+        #password{font-size: 17px;padding:0 16px; border-radius:6px;width: 332px;height: max-content;display:block;margin-right: auto;margin-left: auto;line-height: 48px;}
+        #invalido{font-size: 17px;padding:0 16px; border-radius:6px;width: 332px;height: max-content;display:block;margin-right: auto;margin-left: auto;line-height: 48px;}
+        #exitosamente{font-size: 17px;padding:0 16px; border-radius:6px;width: 332px;height: max-content;display:block;margin-right: auto;margin-left: auto;line-height: 48px;}
+</style>
 </head>
 <body>
-
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed"
-                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-                    aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span> <span
-                    class="icon-bar"></span> <span class="icon-bar"></span> <span
-                    class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#" th:href="@{/}">Registro y
-                inicio de sesión</a>
+<nav class="navbar navbar-expand-lg " id="menu">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#" th:href="@{/registro}" id="inicio"><h1>Registrarse</h1></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+            </div>
         </div>
     </div>
 </nav>
-
-<br>
-<br>
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+    <div class="m-0 row justify-content-center">
+        <div class="col-md6 col-lg-4">
             <div th:if="${param.exito}">
-                <div class="alert alert-info">
-                    Se ha registrado exitosamente a la aplicación
-                </div></div>
+                <div class="alert alert-info" id="exitosamente">
+                    Se ha registrado exitosamente
+                    <button type="button" class="btn btn-close" data-bs-dismiss="alert" style="float: right;margin-top: 15px;"></button>
+                </div>
+            </div>
+            <h1 style="text-align:center" class="p-3 mb-2 text-black"> Registrate </h1>
 
-            <h1>Regístrate</h1>
+            <br>
+
             <form th:action="@{/registro}" method="post" th:object="${usuario}">
-                <div class="form-group">
-                    <label class="control-label" for="nombre">Nombre:</label>
-                    <input id="nombre" type="text" class="form-control" th:field="*{nombre}" required autofocus="autofocus">
+                <div>
+                    <input id="nombre" type="text" class="form-control" th:field="*{nombre}" required autofocus="autofocus" placeholder="Ingrese su nombre">
+                </div>
+                <br>
+                <div>
+                    <input id="apellido" class="form-control" th:field="*{apellido}" required autofocus="autofocus" placeholder="Ingrese su apellido">
                 </div>
 
-                <div class="form-group">
-                    <label class="control-label" for="apellido">Apellido:</label>
-                    <input id="apellido" class="form-control" th:field="*{apellido}" required autofocus="autofocus">
+                <br>
+                <div>
+                    <input id="email" type="email" class="form-control" th:field="*{email}" required autofocus="autofocus" placeholder="Ingrese su email">
                 </div>
-
-                <div class="form-group">
-                    <label class="control-label" for="email">Email:</label>
-                    <input id="email" type="email" class="form-control" th:field="*{email}" required autofocus="autofocus">
+                <br>
+                <div>
+                    <input id="password" type="password" class="form-control" th:field="*{password}" required autofocus="autofocus" placeholder="Ingrese su password">
                 </div>
-
-                <div class="form-group">
-                    <label class="control-label" for="password">Password:</label>
-                    <input id="password" type="password" class="form-control" th:field="*{password}" required autofocus="autofocus">
-                </div>
-
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success">Registrar</button>
-                    <span>Si estas registrado <a th:href="@{/login}">Inicia sesión aquí</a></span>
-                </div>
+                <br>
+                <input type="submit" class="form-control btn" id="crear" value="Registrarse"/>
+                <hr>
+                <p style="text-align:center;">Si estas registrado inicia sesión</p>
+                <a th:href="@{/login}" class="btn" id="login-submit">Iniciar sesión</a>
             </form>
         </div>
     </div>
-</div>
+
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
 </body>
 </html>
