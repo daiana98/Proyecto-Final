@@ -37,7 +37,7 @@ public class LectorControlador {
 
         return "lector/nuevo_lector";
     }
-    //biding manejo de errores con redirectAtribute, para recibir los errores de validacion
+
     @PostMapping("/saveLector")
     public String guardarLector(@Validated Lector lector, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model modelo){
 
@@ -59,12 +59,11 @@ public class LectorControlador {
         //modelamos el lector
         modelo.addAttribute("lector", lector);
 
-        //retornamos una vissta retornamos el ormualrio edita html
+
         return "lector/editar_lector";
     }
 
-    //un post por que vamos a alojar un dato el que envia a la BD, path variable nos ayuda a modelar el id, validated para validar el objeto contacto
-    //redirect result releja los errores
+
     @PostMapping("/editarLector/{id}")
     public String actualizarLector(@PathVariable Integer id, @Validated Lector lector, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
         Lector lectorAbd = lectorServicio.obtenerLectorPorId(id);
@@ -86,7 +85,7 @@ public class LectorControlador {
         //redirecionamos para que sepa que esta ok
         redirectAttributes.addFlashAttribute("msgExito", "El lector se ha actualizado con exito");
 
-        //returnamos la pagina inicial con el / por uque esa es la incial
+
         return "redirect:/listarLectores";
     }
 

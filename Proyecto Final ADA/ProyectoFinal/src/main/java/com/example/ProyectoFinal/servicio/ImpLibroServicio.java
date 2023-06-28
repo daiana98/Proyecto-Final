@@ -45,13 +45,5 @@ public class ImpLibroServicio implements LibroServicio{
         return libroRepositorio.findBycondicionEjemplar("CON_STOCK");
     }
 
-    /*public void actualizarStockLibros(Libro libro){
-        Integer cantEjemplares = libro.getCantEjemplares()-1;
-        Long isbn = libro.getIsbn();
-        libroRepositorio.updateCantEjemplares(cantEjemplares, isbn);
 
-        if (cantEjemplares == 0){
-            libroRepositorio.updatecondicionEjemplar("SIN_STOCK", isbn);
-        }
-    }*/
 }

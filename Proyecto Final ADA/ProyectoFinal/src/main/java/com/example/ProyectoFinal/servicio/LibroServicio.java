@@ -20,5 +20,4 @@ public interface LibroServicio {
 
     public List<Libro> librosDisponibles();
 
-    //public void actualizarStockLibros(Libro libro);
 }

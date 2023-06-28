@@ -13,16 +13,6 @@ import java.util.List;
 public interface LibroRepositorio extends JpaRepository<Libro, Long> {
 
     public List<Libro> findBycondicionEjemplar(String condicionEjemplar);
-/*
-    @Transactional
-    @Modifying
-    @Query("update libro c set c.cant_ejemplares = ? where c.isbn = ?")
-    public void updateCantEjemplares(Integer cantEjemplares, Long isbn);
 
-    @Transactional
-    @Modifying
-    @Query("update libro c set c.condicion_ejemplar = ? where c.isbn = ?")
-    public void updatecondicionEjemplar(String condicionEjemplar, Long isbn);
-*/
 
 }

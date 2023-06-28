@@ -31,7 +31,7 @@ public class Libro {
     private LocalDate anioEdicion;
 
     @NotNull(message = "Debe ingresar una cantidad")
-    @Min(1)
+    @Min(0)
     @Column(name = "cant_ejemplares", nullable = false)
     private Integer cantEjemplares;
 

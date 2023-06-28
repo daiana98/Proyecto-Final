@@ -52,7 +52,7 @@
             <div class="mb-3">
                 <label class="col-md-2" for="autor">Autor: </label>
                 <select th:field="*{autor}" class="form-control form-control-sm col-md-6" id="autor">
-                    <option th:each="autor:${autoresList}" th:value="${autor.Id}" th:text="${autor.nombreAutor}" id="autorList"></option>
+                    <option th:each="autor:${autoresList}" th:value="${autor.Id}" th:text="${autor.nombreAutor}+' '+${autor.apellidoAutor}" id="autorList"></option>
                 </select>
             </div>
 

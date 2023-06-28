@@ -40,14 +40,7 @@ public class AutorControlador {
     public String home(){
         return "home";
     }
-    /*@GetMapping("/")
-    public String verPaginaDeInicio(Model modelo){
-        List<Autor> autores = autorServicio.listarTodosLosAutores();
 
-        modelo.addAttribute("autores",autores);
-
-        return "index";
-    }*/
 
     @GetMapping("/listar")
     public String verPaginaDeInicioAutor(Model modelo){
@@ -64,7 +57,7 @@ public class AutorControlador {
 
         return "autor/nuevo_autor";
     }
-    //biding manejo de errores con redirectAtribute, para recibir los errores de validacion
+
     @PostMapping("/save")
     public String guardarAutor(@Validated Autor autor, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model modelo){
 
@@ -82,20 +75,19 @@ public class AutorControlador {
     @GetMapping("/editar/{id}")
     public String mostrarFormularioDeEditarAutor(@PathVariable Integer id, Model modelo){
 
-        Autor autor = autorServicio.obtenerAutorPorId(id);//recuperamos el autor
-        //modelamos el autor
+        Autor autor = autorServicio.obtenerAutorPorId(id);
+
         modelo.addAttribute("autor", autor);
 
-        //retornamos una vissta retornamos el ormualrio edita html
+
         return "autor/editar_autor";
     }
 
-    //un post por que vamos a alojar un dato el que envia a la BD, path variable nos ayuda a modelar el id, validated para validar el objeto contacto
-    //redirect result releja los errores
+
     @PostMapping("/editar/{id}")
     public String actualizarAutor(@PathVariable Integer id, @Validated Autor autor, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
         Autor autorAbd = autorServicio.obtenerAutorPorId(id);
-        if (bindingResult.hasErrors()){//nos ayuda a saber si hubo error en el omulario
+        if (bindingResult.hasErrors()){
             //
             model.addAttribute("autor", autor);
 
@@ -113,7 +105,7 @@ public class AutorControlador {
         //redirecionamos para que sepa que esta ok
         redirectAttributes.addFlashAttribute("msgExito", "El autor se ha actualizado con exito");
 
-        //returnamos la pagina inicial con el / por uque esa es la incial
+        //returnamos la pagina inicial con el / por que esa es la inicial
         return "redirect:/listar";
     }
 
@@ -129,17 +121,7 @@ public class AutorControlador {
         }
 
         redirectAttributes.addFlashAttribute("msgError", "El autor no se puede eliminar, verifique los libros con este Autor");
-        //retornamos el index*/
-        /*model.addAttribute("bindingResult", bindingResult);
 
-        if (bindingResult.hasErrors()){
-            //model.addAttribute("autor", autor);
-            redirectAttributes.addFlashAttribute("msgError", "El autor no se puede eliminar, verifique los libros con este Autor");
-            return "autor/error_autor";
-        }
-        autorServicio.Eliminar(id);
-        redirectAttributes.addFlashAttribute("msgExito", "El autor se ha eliminado con Exito");
-*/
         return "redirect:/listar";
 
     }

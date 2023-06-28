@@ -33,39 +33,6 @@
                 <div th:if="${#fields.hasErrors('fechaMaxDevolucion')}" th:errors="*{fechaMaxDevolucion}" class="invalid-feedback"></div>
             </div>
 
-            <!--<div class="mb-3">
-                <div class="form-group">
-                    <label for="lector">Lectores</label>
-                    <input type="text" class="form-control" placeholder="Busque el Lector" th:field="*{lector}" list="lector-lista" id="lector" required>
-                    <datalist id="lector-lista">
-                        <option th:each="lectores:${lectoresList}" th:value="${lectores.Id}" th:text="${lectores.nombreLector}"></option>
-                    </datalist>
-                </div>
-            </div>-->
-            <!-- saco el lector
-            <div class="mb-3">
-                <label class="col-md-2" for="lector">Lectores: </label>
-                <select th:field="*{lector}" class="form-control form-control-sm col-md-6" id="lector">
-                    <option th:each="lectores:${lectoresList}" th:value="${lectores.Id}" th:text="${lectores.nombreLector}" id="listLector"></option>
-                </select>
-            </div>-->
-
-            <!--<div class="mb-3">
-                <div class="form-group">
-                    <label for="libro">ISBN</label>
-                    <input type="text" class="form-control" placeholder="Busque el ISBN" th:field="*{libro}" list="libros-lista" id="libro" required>
-                    <datalist id="libros-lista">
-                        <option th:each="libros:${librosIsbnList}" th:value="${libros.isbn}" th:text="${libros.titulo}">Libros</option>
-                    </datalist>
-                </div>
-            </div>-->
-            <!--saco el libro
-            <div class="mb-3">
-                <label class="col-md-2" for="libro">ISBN: </label>
-                <select th:field="*{libro}" class="form-control form-control-sm col-md-6" id="libro">
-                    <option th:each="libros:${librosIsbnList}" th:value="${libros.isbn}" th:text="${libros.titulo}" id="listLibros"></option>
-                </select>
-            </div>-->
 
             <div class="text-end">
 
